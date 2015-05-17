@@ -1,0 +1,68 @@
+<?php
+
+
+/*
+	GitLab Sync (c) Martin Pham
+
+	http://martinpham.co
+
+	File: gateway.php
+	Version: 1.0.0
+	Description: Service hook handler for GitLab projects
+
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+*/
+
+
+/*
+	This script accepts commit information from GitLab. Commit information 
+	is automatically posted by GitLab after each push to a repository, 
+	through its Post Service GitLab. 
+ */
+
+require_once( 'config.php' );
+
+// For 4.3.0 <= PHP <= 5.4.0
+if (!function_exists('http_response_code'))
+{
+    function http_response_code($newcode = NULL)
+    {
+        static $code = 200;
+        if($newcode !== NULL)
+        {
+            header('X-PHP-Response-Code: '.$newcode, true, $newcode);
+            if(!headers_sent())
+                $code = $newcode;
+        }       
+        return $code;
+    }
+}
+
+$file = $CONFIG['commitsFilenamePrefix'] . time() . '-' . rand(0, 100);
+$location = $CONFIG['commitsFolder'] . (substr($CONFIG['commitsFolder'], -1) == '/' ? '' : '/');
+
+// Parse auhentication key from request
+if(isset($_GET['key'])) {
+	$key = strip_tags(stripslashes(urlencode($_GET['key'])));
+
+} else $key = '';
+
+// check authentication key if authentication is required
+if ( !$CONFIG['requireAuthentication'] || $CONFIG[ 'requireAuthentication' ] && $CONFIG[ 'gatewayAuthKey' ] == $key) {
+		// process the commit data right away
+		if($CONFIG['automaticDeployment']) {
+				$key = $CONFIG['deployAuthKey'];
+				require_once( 'deploy.php' );
+		}
+}
+else http_response_code(401);
+
+/* Omit PHP closing tag to help avoid accidental output */
