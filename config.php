@@ -1,13 +1,13 @@
 <?php
 
 /*
-	BitBucket Sync (c) Alex Lixandru
+	GitLab Sync (c) Martin Pham
 
-	https://bitbucket.org/alixandru/bitbucket-sync
+	http://martinpham.co
 
 	File: config.php
-	Version: 2.0.0
-	Description: Configuration file for BitBucket Sync script
+	Version: 1.0.0
+	Description: Configuration file for GitLab Sync script
 
 
 	This program is free software; you can redistribute it and/or
@@ -20,11 +20,11 @@
 	GNU General Public License for more details.
 */
 
-/** Configuration for BitBucket Sync. */
+/** Configuration for GitLab Sync. */
 $CONFIG = array(
 
 	/**
-	 * The location where to temporary store commit data sent by BitBucket's
+	 * The location where to temporary store commit data sent by GitLab's
 	 * Post Service hook. This is the location from where the deploy script
 	 * will read information about what files to synchronize. The folder
 	 * must exist on the web server and the process executing both the gateway
@@ -70,16 +70,16 @@ $CONFIG = array(
 	 * If requireAuthentication is set to 'true' a secret value
 	 * needs to be provided via an additional "key" URL parameter in script requests.
 	 *
-	 * While not required, bitbucket-sync is potentially left open to control
+	 * While not required, GitLab-sync is potentially left open to control
 	 * by strangers should an authentication key not be set.
  	 *
 	 * Keys can be identical, or you can set unique values for each key.
 	 *
  	 * 'deployAuthKey' is typically used in the deploy URL
- 	 * Example: http://example.com/bitbucket-sync/deploy.php?key=value
+ 	 * Example: http://example.com/GitLab-sync/deploy.php?key=value
  	 *
  	 * 'gatewayAuthKey' is typically used by the Post Service Hook.
- 	 * Example: http://example.com/bitbucket-sync/gateway.php?key=value
+ 	 * Example: http://example.com/GitLab-sync/gateway.php?key=value
 	 *
 	 */
 	'requireAuthentication' => false,
@@ -93,9 +93,9 @@ $CONFIG = array(
  * REQUIRED:
  *
  * The location where the project files will be deployed when modified in the
- * BitBucket project, identified by the name of the BitBucket project.
+ * GitLab project, identified by the name of the GitLab project.
  * The following pattern is used: [project-name] => [path on the web-server].
- * This allows multiple BitBucket projects to be deployed to different
+ * This allows multiple GitLab projects to be deployed to different
  * locations on the web-server's file system.
  *
  * Multiple projects example:
@@ -104,7 +104,7 @@ $CONFIG = array(
  *		'my-project-name' => '/home/www/site/',
  *		'my-data' => '/home/www/data/',
  *		'another-project' => '/home/username/public_html/',
- *		'user.bitbucket.org' => '/home/www/bbpages/',
+ *		'user.GitLab.org' => '/home/www/bbpages/',
  * 	);
  *
  * Make sure all these paths are writable! It is also recommended to use
