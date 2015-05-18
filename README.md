@@ -32,7 +32,7 @@ This script requires PHP 5.3+ with **cURL** and **Zip** extensions enabled. It c
   and `'apiPassword' => $_GET['apiPassword']` to `'apiPassword' => '<Your Password>'` 
 
   (or `'apiToken' => $_GET['apiToken']` to `'apiToken' => '<Your Token>'` if you want to use Token instead).
-  
+
   4. Make sure all folders involved in the sync process are **write-accessible** (see `config.php` for details). The most important of all is your `commits` folder. You can test if this folder is writable by accessing the `gateway.php` script with `test` parameter in your browser (i.e. `http://mysite.ext/GitLab-sync/gateway.php?test`)
   5. Perform an initial import of each project, through which the project files are copied to the web-server file-system (see **Operation** section below).
   6. Configure the GitLab projects to send commit information to your web server through the POST service hook. The hook must point to the `gateway.php` script (do this for each repository that needs to be synchronized!). [See more information][Hook] on how to create a service hook in GitLab. 
@@ -106,6 +106,10 @@ All of this information can be provided in the `config.php` file (initially incl
 **v1.0**
 
 * Initial. Based on alixandru's idea about Bitbucket Sync.
+
+**v1.1**
+
+* Add Token support.
 
 
 
