@@ -60,6 +60,9 @@ $CONFIG = array(
 	/** The password of {apiUser} account */
 	'apiPassword' => $_GET['apiPassword'],
 
+	/** The (optional) token of {apiUser} account */
+	'apiToken' => $_GET['apiToken'],
+
 	/** Whether to print operation details. Very useful, especially when setting up projects */
 	'verbose' => true,
 

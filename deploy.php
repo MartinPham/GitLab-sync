@@ -243,6 +243,8 @@ function syncChanges($key, $retry = false) {
 function getPrivateToken() {
 	global $CONFIG;
 	
+	if($CONFIG['apiToken'] != "") return $CONFIG['apiToken'];
+	
 	echo "Getting token\n";
 
 	// create a new cURL resource
